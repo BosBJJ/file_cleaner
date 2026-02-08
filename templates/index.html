@@ -1,0 +1,21 @@
+<form method="post">
+  <label>
+    Folder path:
+    <input type="text" name="folder">
+  </label>
+  <br>
+
+  <label>
+    Days:
+    <input type="number" name="days">
+  </label>
+  <br>
+
+  <button type="submit">Scan</button>
+</form>
+
+{% if folder or days %}
+  <h2>Submitted values</h2>
+  <p>Folder: {{ folder }}</p>
+  <p>Days: {{ days }}</p>
+{% endif %}
