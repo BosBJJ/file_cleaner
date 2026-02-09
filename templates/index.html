@@ -1,21 +1,31 @@
+<body>
+  <div class="container">
+    <h1>File Cleaner Web App</h1>
+
+
 {% if error %}
   <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+{% if message %}
+  <p style="color: green;">{{ message }}</p>
 {% endif %}
 
 <form method="post">
   <label>
     Folder path:
-    <input type="text" name="folder">
+    <input type="text" name="folder" value="{{ folder }}">
   </label>
   <br>
 
   <label>
     Days:
-    <input type="number" name="days">
+    <input type="number" name="days" value="{{ days }}">
   </label>
   <br>
 
-  <button type="submit">Scan</button>
+  <button type="submit" name="action" value="scan">Scan</button>
+  <button type="submit" name="action" value="delete">Delete</button>
 </form>
 
 {% if files %}
@@ -33,3 +43,6 @@
   <p>Folder: {{ folder }}</p>
   <p>Days: {{ days }}</p>
 {% endif %}
+
+  </div>
+</body>

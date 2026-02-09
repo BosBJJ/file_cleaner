@@ -3,10 +3,17 @@ from datetime import datetime, timedelta
 import sys
 
 def find_old_files(folder: Path, days: int):
-    folder_path = Path(folder)
+    folder_path = Path(folder).resolve()
+    #Silly app deleted itself so now I have to make sure it doesn't
+    project_root = Path(__file__).parent.resolve()
+    if folder_path == project_root or project_root in folder_path.parents:
+        raise Exception("Refusing to clean inside the project directory.")
+    
     to_be_deleted = []
+
     if not folder_path.is_dir():
         raise Exception("Incorrect Path, please check your spelling")
+    
     time_now = datetime.now()
     
     for path in folder_path.iterdir():
@@ -20,6 +27,7 @@ def find_old_files(folder: Path, days: int):
             cutoff = time_now - timedelta(days=days)
             if modified_time < cutoff:
                 to_be_deleted.append(path)
+
     return to_be_deleted
 
 def delete_files(files: list[Path]):
